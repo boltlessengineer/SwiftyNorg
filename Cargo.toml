@@ -1,0 +1,24 @@
+[package]
+name = "norg-lib"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "debug"
+path = "src/bin/debug.rs"
+
+[lib]
+crate-type = ["staticlib", "rlib"]
+
+[dependencies]
+nucleo-matcher = "0.3.1"
+rust-norg = { git = "https://github.com/benlubas/rust-norg", branch = "push-muvktopotzpo" }
+serde = "1.0.203"
+serde_json = "1.0.128"
+serde_yaml = "0.9.34"
+swift-bridge = "0.1.57"
+url = "2.5.4"
+walkdir = "2.5.0"
+
+[build-dependencies]
+swift-bridge-build = "0.1.57"
