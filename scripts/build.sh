@@ -14,7 +14,7 @@ run_script cargo build --release --target aarch64-apple-ios-sim
 echo "Creating package"
 run_script swift-bridge-cli create-package \
     --bridges-dir ./generated \
-    --out-dir ./SwiftyNorg \
+    --out-dir . \
     --simulator ./target/aarch64-apple-ios-sim/release/libnorg_lib.a \
     --ios ./target/aarch64-apple-ios/release/libnorg_lib.a \
     --name SwiftyNorg
