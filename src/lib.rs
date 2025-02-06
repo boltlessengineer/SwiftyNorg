@@ -10,7 +10,7 @@ use walkdir::WalkDir;
 #[swift_bridge::bridge]
 mod ffi {
     extern "Rust" {
-        fn get_length(term: String) -> String;
+        fn parse(content: &str) -> String;
 
         fn read_file(url: String) -> String;
 
@@ -18,8 +18,8 @@ mod ffi {
     }
 }
 
-fn get_length(term: String) -> String {
-    parse(term).unwrap_or(String::from("failed to parse"))
+fn parse(content: &str) -> String {
+    parse_norg(content).unwrap_or(String::from("failed to parse"))
 }
 
 fn read_file(url: String) -> String {
@@ -79,8 +79,8 @@ pub fn search(path: &str, query: &str) -> Vec<String> {
     return safe_search(path, query).unwrap_or_else(|e| vec![e]);
 }
 
-fn parse(doc: String) -> Result<String, Box<dyn std::error::Error>> {
-    let ast = rust_norg::parse_tree(&doc).or_else(|_| return Err("failed to parse tree"));
+fn parse_norg(doc: &str) -> Result<String, Box<dyn std::error::Error>> {
+    let ast = rust_norg::parse_tree(doc).or_else(|_| return Err("failed to parse tree"));
     let ast_json = serde_json::to_string(&ast)?;
     Ok(ast_json)
 }

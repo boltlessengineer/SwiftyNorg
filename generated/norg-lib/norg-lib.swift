@@ -1,5 +1,7 @@
-public func get_length<GenericIntoRustString: IntoRustString>(_ term: GenericIntoRustString) -> RustString {
-    RustString(ptr: __swift_bridge__$get_length({ let rustString = term.intoRustString(); rustString.isOwned = false; return rustString.ptr }()))
+public func parse<GenericToRustStr: ToRustStr>(_ content: GenericToRustStr) -> RustString {
+    return content.toRustStr({ contentAsRustStr in
+        RustString(ptr: __swift_bridge__$parse(contentAsRustStr))
+    })
 }
 public func read_file<GenericIntoRustString: IntoRustString>(_ url: GenericIntoRustString) -> RustString {
     RustString(ptr: __swift_bridge__$read_file({ let rustString = url.intoRustString(); rustString.isOwned = false; return rustString.ptr }()))
